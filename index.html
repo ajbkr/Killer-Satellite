@@ -1,75 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
-
-  <title>andrewjbaker/Killer-Satellite @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #ffffff;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #000000; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #000000; }
-    h3 { text-align: center; color: #000000; }
-    a { color: #000000; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
-
-<body>
-  <a href="http://github.com/andrewjbaker/Killer-Satellite"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/andrewjbaker/Killer-Satellite/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/andrewjbaker/Killer-Satellite/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/andrewjbaker/Killer-Satellite">Killer-Satellite</a>
-      <span class="small">by <a href="http://github.com/andrewjbaker">andrewjbaker</a></span></h1>
-
-    <div class="description">
-      HTML5 2D real-time ray traced Killer Comet clone
-    </div>
-
-    <h2>Contact</h2>
-<p>Andrew J. Baker (andrew_j_baker2@hotmail.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/andrewjbaker/Killer-Satellite/zipball/master">zip</a> or
-      <a href="http://github.com/andrewjbaker/Killer-Satellite/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/andrewjbaker/Killer-Satellite</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/andrewjbaker/Killer-Satellite">andrewjbaker/Killer-Satellite</a>
-    </div>
-
-  </div>
-
-  
-</body>
+  <head>
+    <title>Killer Satellite</title>
+  </head>
+  <body onload="main()">
+    <h1>Killer Satellite</h1>
+    <p>Press spacebar or click canvas to launch missile.</p>
+    <canvas id="screen" style="height: 240px; width: 320px" height="120"
+      width="160">
+      <p>
+        &lt;canvas&gt; element not supported.
+      </p>
+    </canvas>
+    <table>
+      <tr>
+        <td>Wins</td>
+        <td>Losses</td>
+      </tr>
+      <tr>
+        <td id="wins">0</td>
+        <td id="losses">0</td>
+      </tr>
+    </table><script type="text/javascript">
+function main(){init();var a=document.getElementById("screen").getContext("2d");imageData=a.getImageData(0,0,160,120);data=imageData.data;var b=new VectorType;var c=new VectorType;var d=false;var e=false;document.getElementById("screen").addEventListener("click",function(){if(!e){d=true}},false);document.addEventListener("keydown",function(a){if(a.keyCode==32){a.preventDefault();if(!e){d=true}}},false);var f=2;var g=0;var h=1e3/15;var i=10;var j=(new Date).getTime();(function k(){g=0;while((new Date).getTime()>j){if(d){if(sphere3.m>-170){sphere3.m-=1;var i=sphere2.l-sphere3.l;var l=sphere2.m-sphere3.m;var m=i*i+l*l;var n=sphere2.r+sphere3.r;if(m<=n*n){d=false;sphere3.m=-50;if(sphere2.r>5){sphere2.r-=2.5}else{document.getElementById("wins").innerHTML=parseInt(document.getElementById("wins").innerHTML,10)+1;sphere2.l=0;sphere2.m=-140;sphere2.r=12.5}}}else{d=false;sphere3.m=-50}}var o=sphere.l+(Math.cos(f/180*Math.PI)*(sphere2.l-sphere.l)-Math.sin(f/180*Math.PI)*(sphere2.m-sphere.m))*.9995;var p=sphere.m+(Math.sin(f/180*Math.PI)*(sphere2.l-sphere.l)+Math.cos(f/180*Math.PI)*(sphere2.m-sphere.m))*.9995;sphere2.l=o;sphere2.m=p;var i=sphere.l-sphere2.l;var l=sphere.m-sphere2.m;var m=i*i+l*l;var n=sphere.r+sphere2.r;if(m<=n*n){e=true;sphere2.r=0;if(!d){sphere3.r=0}}if(e){if(sphere.r-1>0){--sphere.r}else{document.getElementById("losses").innerHTML=parseInt(document.getElementById("losses").innerHTML,10)+1;d=false;e=false;sphere.r=50;sphere2.l=0;sphere2.m=-140;sphere2.r=12.5;sphere3.r=5}}j+=h;++g}for(var q=0;q<120;++q){for(var r=0;r<160;++r){c.x=r-VIEWER_X;c.y=(q-VIEWER_Y)*1.33;c.z=VIEWER_DISTANCE;var s=Math.sqrt(c.x*c.x+c.y*c.y+c.z*c.z);b.x=c.x/s;b.y=c.y/s;b.z=c.z/s;plot(r,q,traceRay(b,c))}}imageData.data=data;a.putImageData(imageData,0,0);requestAnimFrame(k,a.canvas)})()}function init(){window.requestAnimFrame=function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(a,b){window.setTimeout(a,1e3/60)}}();RECTANGLE=1;INFINITE_PLANE=2;SPHERE=3;BACKGROUND_COLOR=0;LIGHT_SOURCE=new VectorType;LIGHT_SOURCE.x=200;LIGHT_SOURCE.y=-100;LIGHT_SOURCE.z=0;VIEWER_X=80;VIEWER_Y=60;VIEWER_DISTANCE=75;plane=new PlaneType;plane.surfaceNormal=new VectorType;plane.surfaceNormal.x=0;plane.surfaceNormal.y=-1;plane.surfaceNormal.z=0;plane.distance=250;sphere=new SphereType;sphere.l=0;sphere.m=0;sphere.n=150;sphere.r=50;sphere2=new SphereType;sphere2.l=0;sphere2.m=-140;sphere2.n=150;sphere2.r=12.5;sphere3=new SphereType;sphere3.l=0;sphere3.m=-50;sphere3.n=150;sphere3.r=5;objects=[];objects[0]=new ObjectUnion;objects[0].typeOfObject=SPHERE;objects[0].color=127;objects[0].obj=sphere;objects[1]=new ObjectUnion;objects[1].typeOfObject=SPHERE;objects[1].color=191;objects[1].obj=sphere2;objects[2]=new ObjectUnion;objects[2].typeOfObject=INFINITE_PLANE;objects[2].color=63;objects[2].obj=plane;objects[3]=new ObjectUnion;objects[3].typeOfObject=SPHERE;objects[3].color=255;objects[3].obj=sphere3;NUMBER_OF_OBJECTS=objects.length;MAXDOUBLE=Number.MAX_VALUE}function lightSource(a,b,c){var d=new VectorType;d.x=LIGHT_SOURCE.x-b.x;d.y=LIGHT_SOURCE.y-b.y;d.z=LIGHT_SOURCE.z-b.z;var e=Math.sqrt(d.x*d.x+d.y*d.y+d.z*d.z);if(e==0){e=1}var f=d.x/e;var g=d.y/e;var h=d.z/e;var i=c.x*f+c.y*g+c.z*h;if(i<0){i=0}else if(i>1){i=1}var j=a*i;j=Math.floor(j);if(j>255){j=255}return j}function plot(a,b,c){var d=b*160*4+a*4;data[d]=c;data[++d]=c;data[++d]=c;data[++d]=255}function traceRay(a,b){var c=MAXDOUBLE;var d=new VectorType;var e=BACKGROUND_COLOR;for(var f=0;f<NUMBER_OF_OBJECTS;++f){switch(objects[f].typeOfObject){case INFINITE_PLANE:var g=objects[f].obj.surfaceNormal;var h=g.x;var i=g.y;var j=g.z;var k=objects[f].obj.distance;var l=b.x;var m=b.y;var n=b.z;var o=a.x;var p=a.y;var q=a.z;var r=h*o+i*p+j*q;if(r!=0){var s=-(h*l+i*m+j*n+k);var t=s/r;if(t<c&&t>=0){c=t;d.x=l+o*t;d.y=m+p*t;d.z=n+q*t;e=lightSource(objects[f].color,d,g)}}break;case SPHERE:var u=objects[f].obj.l;var v=objects[f].obj.m;var w=objects[f].obj.n;var x=objects[f].obj.r;var l=b.x;var m=b.y;var n=b.z;var o=a.x;var p=a.y;var q=a.z;var i=2*(o*(l-u)+p*(m-v)+q*(n-w));var j=(l-u)*(l-u)+(m-v)*(m-v)+(n-w)*(n-w)-x*x;var y=i*i-4*j;if(y>=0){var z=Math.sqrt(y);var A=(-i-z)/2;var B=(-i+z)/2;if(A>0||B>0){if(A>0){var t=A}if(B<A&&B>=0){var t=B}if(t<c){c=t;d.x=l+o*t;d.y=m+p*t;d.z=n+q*t;var g=new VectorType;g.x=(d.x-u)/x;g.y=(d.y-v)/x;g.z=(d.z-w)/x;e=lightSource(objects[f].color,d,g)}}}}}return e}function ObjectType(){this.typeOfObject=0;this.color=0;this.obj=null}function ObjectUnion(){this.plane=null;this.sphere=null}function SphereType(){this.l=0;this.m=0;this.n=0;this.r=0}function PlaneType(){this.surfaceNormal=null;this.distance=0}function VectorType(){this.x=0;this.y=0;this.z=0}
+</script>
+  </body>
 </html>
